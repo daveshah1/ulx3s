@@ -39,7 +39,7 @@
 //////////////////////////////////////////////////////////////////////
 
 module orpsoc_top #(
-	parameter       bootrom_file = "../src/ulx3s_0/sw/spi_uimage_loader.vh"
+	parameter       bootrom_file = "bootrom/spi_uimage_loader.vh"
 )(
 	input		sys_clk_pad_i,
 	input		btn_pad_i,

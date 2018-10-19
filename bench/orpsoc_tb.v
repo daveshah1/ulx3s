@@ -7,14 +7,14 @@ module orpsoc_tb;
 // Boot ROM selection
 //
 ////////////////////////////////////////////////////////////////////////
-   parameter bootrom_file = "../src/ulx3s_0/sw/clear_r3_and_jump_to_0x100.vh";
- // parameter bootrom_file = "../src/ulx3s_0/sw/spi_uimage_loader.vh";
+   parameter bootrom_file = "bootrom/clear_r3_and_jump_to_0x100.vh";
+ // parameter bootrom_file = "bootrom/spi_uimage_loader.vh";
 
    /*
     When the SPI uimage loader is used, the following parameter can be
     set to provide alternative SPI Flash contents
     */
-   parameter spi_flash_file = "../src/de0_nano_0/bench/spi_image.vh";
+   parameter spi_flash_file = "spi_image.vh";
 
 reg clk   = 0;
 reg rst_n = 0;

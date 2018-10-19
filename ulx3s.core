@@ -36,12 +36,12 @@ include_files =
  rtl/verilog/wb_intercon.vh
  rtl/verilog/wb_intercon_dbg.vh
  rtl/verilog/timescale.v
- sw/clear_r3_and_jump_to_0x100.vh
- sw/spi_uimage_loader.vh
+ sw/clear_r3_and_jump_to_0x100.vh[copyto=bootrom/clear_r3_and_jump_to_0x100.vh]
+ sw/spi_uimage_loader.vh[copyto=bootrom/spi_uimage_loader.vh]
 
 
 tb_include_files =
- bench/spi_image.vh
+ bench/spi_image.vh[copyto=spi_image.vh]
  bench/test-defines.v
 
 [icarus]
@@ -70,7 +70,3 @@ datatype    = bool
 description = Enable trace
 paramtype   = plusarg
 scope       = public
-
-[scripts]
-pre_synth_scripts = legacy_symlink.sh
-pre_build_scripts = legacy_symlink.sh
