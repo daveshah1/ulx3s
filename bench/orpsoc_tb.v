@@ -128,9 +128,6 @@ orpsoc_top
 	.uart0_stx_pad_o	(uart_tx)
 );
 
-`ifdef OR1200
-   or1200_monitor i_monitor();
-`endif
 `ifdef MOR1KX
    mor1kx_monitor #(.LOG_DIR(".")) i_monitor();
 `endif

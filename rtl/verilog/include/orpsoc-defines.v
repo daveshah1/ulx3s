@@ -36,7 +36,4 @@
 // Included modules: define to include
 
 `define MOR1KX
-`ifndef MOR1KX
-`define OR1200
-`endif
 // end of included module defines - keep this comment line here
