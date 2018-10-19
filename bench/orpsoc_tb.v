@@ -1,5 +1,4 @@
 `timescale 1ns/1ps
-`include "orpsoc-defines.v"
 
 module orpsoc_tb;
 
@@ -128,9 +127,8 @@ orpsoc_top
 	.uart0_stx_pad_o	(uart_tx)
 );
 
-`ifdef MOR1KX
    mor1kx_monitor #(.LOG_DIR(".")) i_monitor();
-`endif
+
 ////////////////////////////////////////////////////////////////////////
 //
 // UART decoder

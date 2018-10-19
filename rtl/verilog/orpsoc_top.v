@@ -38,8 +38,6 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-`include "orpsoc-defines.v"
-
 module orpsoc_top #(
 	parameter       bootrom_file = "../src/ulx3s_0/sw/spi_uimage_loader.vh"
 )(
@@ -206,7 +204,6 @@ wire		or1k_rst;
 
 assign or1k_rst = wb_rst | or1k_dbg_rst;
 
-`ifdef MOR1KX
 mor1kx #(
 	.FEATURE_DEBUGUNIT("ENABLED"),
 	.FEATURE_CMOV("ENABLED"),
@@ -273,7 +270,6 @@ mor1kx #(
 	.du_stall_o(or1k_dbg_bp_o)
 );
 
-`endif
 ////////////////////////////////////////////////////////////////////////
 //
 // Debug Interface

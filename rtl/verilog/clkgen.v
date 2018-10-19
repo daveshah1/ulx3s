@@ -32,8 +32,6 @@
 ////                                                              ////
 //////////////////////////////////////////////////////////////////////
 
-`include "orpsoc-defines.v"
-
 module clkgen
 (
 	// Main clocks in, depending on board

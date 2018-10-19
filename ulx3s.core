@@ -35,7 +35,6 @@ tb_private_src_files =
  /usr/local/share/yosys/ecp5/cells_sim.v
 
 include_files =
- rtl/verilog/include/orpsoc-defines.v
  rtl/verilog/wb_intercon.vh
  rtl/verilog/wb_intercon_dbg.vh
  rtl/verilog/timescale.v
