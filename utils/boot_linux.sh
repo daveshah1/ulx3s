@@ -1,0 +1,1 @@
+openocd -s /home/david/build/tutorials/tools/openocd/share/openocd/scripts -f /usr/share/openocd/scripts/interface/ftdi/um232h.cfg -c "transport select jtag; adapter_khz 5000; set TAP_TYPE MOHOR" -f board/or1k_generic.cfg -c "load_image /home/david/or-linux/vmlinux; reg npc 0x100; reg r3 0; resume"

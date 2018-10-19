@@ -1,0 +1,13 @@
+SAPI=1
+[main]
+name = ulx3s
+description = "ULX3S OpenRISC system"
+
+backend = trellis
+
+[trellis]
+nextpnr_options = --45k --basecfg /usr/local/share/trellis/misc/basecfgs/empty_lfe5u-45f.config
+top_module = orpsoc_top
+
+[scripts]
+pre_build_scripts = legacy_symlink.sh
