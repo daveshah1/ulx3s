@@ -1,72 +1,80 @@
-CAPI=1
-[main]
-depend =
- adv_debug_sys
- gpio
- jtag_tap
- mor1kx-4.1
- or1k_bootloaders
- uart16550
- >=wb_intercon-1.0
- >=wb_sdram_ctrl-r4
+CAPI=2:
 
-simulators =
- icarus
- modelsim
+name : ::ulx3s:0
 
-backend = trellis
+filesets:
+  rtl:
+    files:
+      - rtl/verilog/clkgen.v
+      - rtl/verilog/orpsoc_top.v
+      - rtl/verilog/wb_intercon.v
+      - rtl/verilog/wb_intercon.vh : {is_include_file : true}
+      - rtl/verilog/wb_intercon_dbg.v
+      - rtl/verilog/wb_intercon_dbg.vh : {is_include_file : true}
+      - rtl/verilog/timescale.v : {is_include_file : true}
+      - sw/clear_r3_and_jump_to_0x100.vh : {copyto : bootrom/clear_r3_and_jump_to_0x100.vh, file_type : user}
+      - sw/spi_uimage_loader.vh : {copyto : bootrom/spi_uimage_loader.vh, file_type : user}
+    file_type : verilogSource
+    depend:
+      - adv_debug_sys
+      - gpio
+      - jtag_tap
+      - mor1kx-4.1
+      - or1k_bootloaders
+      - uart16550
+      - ">=wb_intercon-1.0"
+      - ">=wb_sdram_ctrl-r4"
 
-[trellis]
-nextpnr_options = --45k --basecfg /usr/local/share/trellis/misc/basecfgs/empty_lfe5u-45f.config
-top_module = orpsoc_top
+  tb:
+    files:
+      - bench/orpsoc_tb.v
+      - bench/uart_decoder.v
+      - bench/spi_image.vh : {copyto : spi_image.vh, file_type : user}
+      - bench/test-defines.v : {is_include_file : true}
+    file_type: verilogSource
+    depend:
+      - "yosys:techlibs:ecp5"
+      - elf-loader
+      - jtag_vpi-r2
+      - mt48lc16m16a2
+      - ">=vlog_tb_utils-1.0"
 
-[verilog]
-src_files =
- rtl/verilog/clkgen.v
- rtl/verilog/orpsoc_top.v
- rtl/verilog/wb_intercon.v
- rtl/verilog/wb_intercon_dbg.v
+targets:
+  synth:
+    default_tool : trellis
+    filesets : [rtl]
+    parameters : [bootrom_file]
+    tools:
+      trellis:
+        nextpnr_options :
+          - --45k
+          - --basecfg
+          - /usr/local/share/trellis/misc/basecfgs/empty_lfe5u-45f.config
+    toplevel : orpsoc_top
 
-tb_private_src_files =
- bench/orpsoc_tb.v
- bench/uart_decoder.v
- /usr/local/share/yosys/ecp5/cells_sim.v
+  sim:
+    default_tool : icarus
+    filesets : [rtl, tb]
+    parameters : [bootrom_file, spi_flash_file, trace_enable]
+    tools:
+      icarus:
+        iverilog_options : [-DICARUS_SIM, -DSIM, -DSPEEDSIM]
+      modelsim:
+        vlog_options : [+define+SIM, +define+MODELSIM_SIM, -timescale 1ns/1ps]
+    toplevel : orpsoc_tb
 
-include_files =
- rtl/verilog/wb_intercon.vh
- rtl/verilog/wb_intercon_dbg.vh
- rtl/verilog/timescale.v
- sw/clear_r3_and_jump_to_0x100.vh[copyto=bootrom/clear_r3_and_jump_to_0x100.vh]
- sw/spi_uimage_loader.vh[copyto=bootrom/spi_uimage_loader.vh]
+parameters:
+  bootrom_file:
+    datatype    : file
+    description : Initial boot ROM contents (in Verilog hex format)
+    paramtype   : vlogparam
 
+  spi_flash_file:
+    datatype    : file
+    description : Initial SPI Flash contents (in Verilog hex format)
+    paramtype   : vlogparam
 
-tb_include_files =
- bench/spi_image.vh[copyto=spi_image.vh]
- bench/test-defines.v
-
-[icarus]
-depend = elf-loader jtag_vpi-r2 mt48lc16m16a2 vlog_tb_utils-1.0
-iverilog_options = -DICARUS_SIM -DSIM -DSPEEDSIM
-
-[modelsim]
-depend = elf-loader jtag_vpi-r2 mt48lc16m16a2 vlog_tb_utils-1.0
-vlog_options = +define+SIM +define+MODELSIM_SIM -timescale 1ns/1ps
-vsim_options = -L altera_mf_ver -L altera_mf
-
-[parameter bootrom_file]
-datatype    = file
-description = Initial boot ROM contents (in Verilog hex format)
-paramtype   = vlogparam
-scope       = private
-
-[parameter spi_flash_file]
-datatype    = file
-description = Initial SPI Flash contents (in Verilog hex format)
-paramtype   = vlogparam
-scope       = private
-
-[parameter trace_enable]
-datatype    = bool
-description = Enable trace
-paramtype   = plusarg
-scope       = public
+  trace_enable:
+    datatype    : bool
+    description : Enable trace
+    paramtype   : plusarg
