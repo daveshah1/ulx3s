@@ -17,6 +17,12 @@ simulators =
  icarus
  modelsim
 
+backend = trellis
+
+[trellis]
+nextpnr_options = --45k --basecfg /usr/local/share/trellis/misc/basecfgs/empty_lfe5u-45f.config
+top_module = orpsoc_top
+
 [verilog]
 src_files =
  rtl/verilog/clkgen.v
@@ -71,4 +77,5 @@ paramtype   = plusarg
 scope       = public
 
 [scripts]
+pre_synth_scripts = legacy_symlink.sh
 pre_build_scripts = legacy_symlink.sh
