@@ -2,14 +2,12 @@ CAPI=1
 [main]
 depend =
  adv_debug_sys
- altera_virtual_jtag
  gpio
  jtag_tap-1.13
  mor1kx-4.1
  or1k_bootloaders-0.9
  uart16550-1.5.4
  >=wb_intercon-1.0
- wb_ram-1.0
  wb_sdram_ctrl-r2
 
 simulators =
