@@ -47,7 +47,9 @@ module clkgen
 
 	// Main memory clocks
 	output	sdram_clk_o,
-	output	sdram_rst_o
+	output	sdram_rst_o,
+
+	output  sdram_clk_pad_o,
 );
 
 // First, deal with the asychronous reset
@@ -67,19 +69,25 @@ wire clkop;
 	.CLKOP_DIV(12),
 	.CLKOP_ENABLE("ENABLED"),
 	.CLKOP_FPHASE(0),
-	.CLKOS_CPHASE(45),
-	.CLKOS_DIV(24),
+	.CLKOS_CPHASE(12),
+	.CLKOS_DIV(12),
 	.CLKOS_ENABLE("ENABLED"),
-	.CLKOS_FPHASE(1'd0),
+	.CLKOS_FPHASE(4),
+	.CLKOS2_CPHASE(11),
+	.CLKOS2_DIV(12),
+	.CLKOS2_ENABLE("ENABLED"),
+	.CLKOS2_FPHASE(0),
 	.FEEDBK_PATH("CLKOP"),
 	.OUTDIVIDER_MUXA("DIVA"),
 	.OUTDIVIDER_MUXB("DIVB"),
+	.OUTDIVIDER_MUXC("DIVC"),
 	.PLL_LOCK_MODE(1'd0)
 ) EHXPLLL_i (
 	.CLKFB(clkop),
 	.CLKI(sys_clk_pad_i),
 	.ENCLKOP(1'd0),
 	.ENCLKOS(1'd0),
+	.ENCLKOS2(1'd0),
 	.PHASEDIR(1'd0),
 	.PHASELOADREG(1'd0),
 	.PHASESEL0(1'd0),
@@ -90,6 +98,7 @@ wire clkop;
 	.STDBY(1'd0),
 	.CLKOP(clkop),
 	.CLKOS(wb_clk_o),
+	.CLKOS2(sdram_clk_pad_o),
 	.LOCK()
 );
 
