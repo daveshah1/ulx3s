@@ -65,7 +65,7 @@ module orpsoc_top #(
 
 	inout	[7:0]	gpio0_io,
 
-	output ulx3s_gpio0_pin
+
 );
 
 
@@ -87,19 +87,15 @@ wire	sdram_rst;
 
 wire sys_clk, btn;
 
-(* LOC="G2" *) (* IO_TYPE="LVCMOS33" *)
+(* LOC="P3" *) (* IO_TYPE="LVDS" *)
 TRELLIS_IO #(.DIR("INPUT")) clk_buf (.B(sys_clk_pad_i), .O(sys_clk));
 
-(* LOC="R1" *) (* IO_TYPE="LVCMOS33" *)
+(* LOC="T1" *) (* IO_TYPE="LVCMOS33" *)
 TRELLIS_IO #(.DIR("INPUT")) btn_buf (.B(btn_pad_i), .O(btn));
-
-(* LOC="L2" *) (* IO_TYPE="LVCMOS33" *)
-TRELLIS_IO #(.DIR("OUTPUT")) ulx_gpio0_buf (.B(ulx3s_gpio0_pin), .I(1'b1));
-
 
 clkgen clkgen0 (
 	.sys_clk_pad_i	(sys_clk),
-	.rst_n_pad_i	(!btn),
+	.rst_n_pad_i	(btn),
 	.async_rst_o	(async_rst),
 	.wb_clk_o	(wb_clk),
 	.wb_rst_o	(wb_rst),
@@ -138,13 +134,13 @@ TMS 2+
 TCK 3+
 */
 
-(* LOC="B11" *) (* IO_TYPE="LVCMOS33" *)
+(* LOC="E11" *) (* IO_TYPE="LVCMOS33" *)
 TRELLIS_IO #(.DIR("OUTPUT")) tdo_buf (.B(tdo_pad_o), .I(tdo_o), .T(!tdo_oe));
-(* LOC="A10" *) (* IO_TYPE="LVCMOS33" *)
+(* LOC="C17" *) (* IO_TYPE="LVCMOS33" *)
 TRELLIS_IO #(.DIR("INPUT")) tdi_buf (.B(tdi_pad_i), .O(tdi_i));
-(* LOC="A9" *) (* IO_TYPE="LVCMOS33" *)
+(* LOC="A18" *) (* IO_TYPE="LVCMOS33" *)
 TRELLIS_IO #(.DIR("INPUT")) tms_buf (.B(tms_pad_i), .O(tms_i));
-(* LOC="B9" *) (* IO_TYPE="LVCMOS33" *)
+(* LOC="A17" *) (* IO_TYPE="LVCMOS33" *)
 TRELLIS_IO #(.DIR("INPUT")) tck_buf (.B(tck_pad_i), .O(tck_i));
 
 
@@ -372,87 +368,87 @@ wire [1:0] sdram_ba_o;
 wire [12:0] sdram_a_o;
 wire sdram_cs_n_o, sdram_ras_o, sdram_cas_o, sdram_we_o, sdram_cke_o;
 
-(* LOC="P19" *) (* IO_TYPE="LVCMOS33" *)
+(* LOC="D8" *) (* IO_TYPE="LVCMOS33" *)
 TRELLIS_IO #(.DIR("OUTPUT")) sdram_ba_buf_0 (.B(sdram_ba_pad_o[0]), .I(sdram_ba_o[0]));
-(* LOC="N20" *) (* IO_TYPE="LVCMOS33" *)
+(* LOC="E8" *) (* IO_TYPE="LVCMOS33" *)
 TRELLIS_IO #(.DIR("OUTPUT")) sdram_ba_buf_1 (.B(sdram_ba_pad_o[1]), .I(sdram_ba_o[1]));
 
-(* LOC="M20" *) (* IO_TYPE="LVCMOS33" *)
+(* LOC="C6" *) (* IO_TYPE="LVCMOS33" *)
 TRELLIS_IO #(.DIR("OUTPUT")) sdram_a_buf_0 (.B(sdram_a_pad_o[0]), .I(sdram_a_o[0]));
-(* LOC="M19" *) (* IO_TYPE="LVCMOS33" *)
+(* LOC="E15" *) (* IO_TYPE="LVCMOS33" *)
 TRELLIS_IO #(.DIR("OUTPUT")) sdram_a_buf_1 (.B(sdram_a_pad_o[1]), .I(sdram_a_o[1]));
-(* LOC="L20" *) (* IO_TYPE="LVCMOS33" *)
+(* LOC="A16" *) (* IO_TYPE="LVCMOS33" *)
 TRELLIS_IO #(.DIR("OUTPUT")) sdram_a_buf_2 (.B(sdram_a_pad_o[2]), .I(sdram_a_o[2]));
-(* LOC="L19" *) (* IO_TYPE="LVCMOS33" *)
+(* LOC="B16" *) (* IO_TYPE="LVCMOS33" *)
 TRELLIS_IO #(.DIR("OUTPUT")) sdram_a_buf_3 (.B(sdram_a_pad_o[3]), .I(sdram_a_o[3]));
-(* LOC="K20" *) (* IO_TYPE="LVCMOS33" *)
+(* LOC="D15" *) (* IO_TYPE="LVCMOS33" *)
 TRELLIS_IO #(.DIR("OUTPUT")) sdram_a_buf_4 (.B(sdram_a_pad_o[4]), .I(sdram_a_o[4]));
-(* LOC="K19" *) (* IO_TYPE="LVCMOS33" *)
+(* LOC="C15" *) (* IO_TYPE="LVCMOS33" *)
 TRELLIS_IO #(.DIR("OUTPUT")) sdram_a_buf_5 (.B(sdram_a_pad_o[5]), .I(sdram_a_o[5]));
-(* LOC="K18" *) (* IO_TYPE="LVCMOS33" *)
+(* LOC="B15" *) (* IO_TYPE="LVCMOS33" *)
 TRELLIS_IO #(.DIR("OUTPUT")) sdram_a_buf_6 (.B(sdram_a_pad_o[6]), .I(sdram_a_o[6]));
-(* LOC="J20" *) (* IO_TYPE="LVCMOS33" *)
+(* LOC="E12" *) (* IO_TYPE="LVCMOS33" *)
 TRELLIS_IO #(.DIR("OUTPUT")) sdram_a_buf_7 (.B(sdram_a_pad_o[7]), .I(sdram_a_o[7]));
-(* LOC="J19" *) (* IO_TYPE="LVCMOS33" *)
+(* LOC="D12" *) (* IO_TYPE="LVCMOS33" *)
 TRELLIS_IO #(.DIR("OUTPUT")) sdram_a_buf_8 (.B(sdram_a_pad_o[8]), .I(sdram_a_o[8]));
-(* LOC="H20" *) (* IO_TYPE="LVCMOS33" *)
+(* LOC="B10" *) (* IO_TYPE="LVCMOS33" *)
 TRELLIS_IO #(.DIR("OUTPUT")) sdram_a_buf_9 (.B(sdram_a_pad_o[9]), .I(sdram_a_o[9]));
-(* LOC="N19" *) (* IO_TYPE="LVCMOS33" *)
+(* LOC="C7" *) (* IO_TYPE="LVCMOS33" *)
 TRELLIS_IO #(.DIR("OUTPUT")) sdram_a_buf_10 (.B(sdram_a_pad_o[10]), .I(sdram_a_o[10]));
-(* LOC="G20" *) (* IO_TYPE="LVCMOS33" *)
+(* LOC="A9" *) (* IO_TYPE="LVCMOS33" *)
 TRELLIS_IO #(.DIR("OUTPUT")) sdram_a_buf_11 (.B(sdram_a_pad_o[11]), .I(sdram_a_o[11]));
-(* LOC="G19" *) (* IO_TYPE="LVCMOS33" *)
+(* LOC="C10" *) (* IO_TYPE="LVCMOS33" *)
 TRELLIS_IO #(.DIR("OUTPUT")) sdram_a_buf_12 (.B(sdram_a_pad_o[12]), .I(sdram_a_o[12]));
 
-(* LOC="F19" *) (* IO_TYPE="LVCMOS33" *)
+(* LOC="E14" *) (* IO_TYPE="LVCMOS33" *)
 TRELLIS_IO #(.DIR("OUTPUT")) sdram_clk_buf (.B(sdram_clk_pad_o), .I(sdram_clk));
-(* LOC="F20" *) (* IO_TYPE="LVCMOS33" *)
+(* LOC="D11" *) (* IO_TYPE="LVCMOS33" *)
 TRELLIS_IO #(.DIR("OUTPUT")) sdram_cke_buf (.B(sdram_cke_pad_o), .I(sdram_cke_o));
-(* LOC="P20" *) (* IO_TYPE="LVCMOS33" *)
+(* LOC="C8" *) (* IO_TYPE="LVCMOS33" *)
 TRELLIS_IO #(.DIR("OUTPUT")) sdram_csn_buf (.B(sdram_cs_n_pad_o), .I(sdram_cs_n_o));
-(* LOC="T20" *) (* IO_TYPE="LVCMOS33" *)
+(* LOC="E9" *) (* IO_TYPE="LVCMOS33" *)
 TRELLIS_IO #(.DIR("OUTPUT")) sdram_wen_buf (.B(sdram_we_pad_o), .I(sdram_we_o));
-(* LOC="R20" *) (* IO_TYPE="LVCMOS33" *)
+(* LOC="B8" *) (* IO_TYPE="LVCMOS33" *)
 TRELLIS_IO #(.DIR("OUTPUT")) sdram_ras_buf (.B(sdram_ras_pad_o), .I(sdram_ras_o));
-(* LOC="T19" *) (* IO_TYPE="LVCMOS33" *)
+(* LOC="D9" *) (* IO_TYPE="LVCMOS33" *)
 TRELLIS_IO #(.DIR("OUTPUT")) sdram_cas_buf (.B(sdram_cas_pad_o), .I(sdram_cas_o));
 
-(* LOC="U19" *) (* IO_TYPE="LVCMOS33" *)
+(* LOC="B6" *) (* IO_TYPE="LVCMOS33" *)
 TRELLIS_IO #(.DIR("OUTPUT")) sdram_dqm_buf_0 (.B(sdram_dqm_pad_o[0]), .I(sdram_dqm_o[0]));
-(* LOC="E20" *) (* IO_TYPE="LVCMOS33" *)
+(* LOC="D14" *) (* IO_TYPE="LVCMOS33" *)
 TRELLIS_IO #(.DIR("OUTPUT")) sdram_dqm_buf_1 (.B(sdram_dqm_pad_o[1]), .I(sdram_dqm_o[1]));
 
-(* LOC="J16" *) (* IO_TYPE="LVCMOS33" *)
+(* LOC="B19" *) (* IO_TYPE="LVCMOS33" *)
 TRELLIS_IO #(.DIR("BIDIR")) sdram_dq_buf_0 (.B(sdram_dq_pad_io[0]), .I(sdram_dq_o[0]), .O(sdram_dq_i[0]), .T(!sdram_dq_oe));
-(* LOC="L18" *) (* IO_TYPE="LVCMOS33" *)
+(* LOC="B12" *) (* IO_TYPE="LVCMOS33" *)
 TRELLIS_IO #(.DIR("BIDIR")) sdram_dq_buf_1 (.B(sdram_dq_pad_io[1]), .I(sdram_dq_o[1]), .O(sdram_dq_i[1]), .T(!sdram_dq_oe));
-(* LOC="M18" *) (* IO_TYPE="LVCMOS33" *)
+(* LOC="B9" *) (* IO_TYPE="LVCMOS33" *)
 TRELLIS_IO #(.DIR("BIDIR")) sdram_dq_buf_2 (.B(sdram_dq_pad_io[2]), .I(sdram_dq_o[2]), .O(sdram_dq_i[2]), .T(!sdram_dq_oe));
-(* LOC="N18" *) (* IO_TYPE="LVCMOS33" *)
+(* LOC="E6" *) (* IO_TYPE="LVCMOS33" *)
 TRELLIS_IO #(.DIR("BIDIR")) sdram_dq_buf_3 (.B(sdram_dq_pad_io[3]), .I(sdram_dq_o[3]), .O(sdram_dq_i[3]), .T(!sdram_dq_oe));
-(* LOC="P18" *) (* IO_TYPE="LVCMOS33" *)
+(* LOC="D6" *) (* IO_TYPE="LVCMOS33" *)
 TRELLIS_IO #(.DIR("BIDIR")) sdram_dq_buf_4 (.B(sdram_dq_pad_io[4]), .I(sdram_dq_o[4]), .O(sdram_dq_i[4]), .T(!sdram_dq_oe));
-(* LOC="T18" *) (* IO_TYPE="LVCMOS33" *)
+(* LOC="E7" *) (* IO_TYPE="LVCMOS33" *)
 TRELLIS_IO #(.DIR("BIDIR")) sdram_dq_buf_5 (.B(sdram_dq_pad_io[5]), .I(sdram_dq_o[5]), .O(sdram_dq_i[5]), .T(!sdram_dq_oe));
-(* LOC="T17" *) (* IO_TYPE="LVCMOS33" *)
+(* LOC="D7" *) (* IO_TYPE="LVCMOS33" *)
 TRELLIS_IO #(.DIR("BIDIR")) sdram_dq_buf_6 (.B(sdram_dq_pad_io[6]), .I(sdram_dq_o[6]), .O(sdram_dq_i[6]), .T(!sdram_dq_oe));
-(* LOC="U20" *) (* IO_TYPE="LVCMOS33" *)
+(* LOC="B11" *) (* IO_TYPE="LVCMOS33" *)
 TRELLIS_IO #(.DIR("BIDIR")) sdram_dq_buf_7 (.B(sdram_dq_pad_io[7]), .I(sdram_dq_o[7]), .O(sdram_dq_i[7]), .T(!sdram_dq_oe));
-(* LOC="E19" *) (* IO_TYPE="LVCMOS33" *)
+(* LOC="C14" *) (* IO_TYPE="LVCMOS33" *)
 TRELLIS_IO #(.DIR("BIDIR")) sdram_dq_buf_8 (.B(sdram_dq_pad_io[8]), .I(sdram_dq_o[8]), .O(sdram_dq_i[8]), .T(!sdram_dq_oe));
-(* LOC="D20" *) (* IO_TYPE="LVCMOS33" *)
+(* LOC="A14" *) (* IO_TYPE="LVCMOS33" *)
 TRELLIS_IO #(.DIR("BIDIR")) sdram_dq_buf_9 (.B(sdram_dq_pad_io[9]), .I(sdram_dq_o[9]), .O(sdram_dq_i[9]), .T(!sdram_dq_oe));
-(* LOC="D19" *) (* IO_TYPE="LVCMOS33" *)
+(* LOC="E13" *) (* IO_TYPE="LVCMOS33" *)
 TRELLIS_IO #(.DIR("BIDIR")) sdram_dq_buf_10 (.B(sdram_dq_pad_io[10]), .I(sdram_dq_o[10]), .O(sdram_dq_i[10]), .T(!sdram_dq_oe));
-(* LOC="C20" *) (* IO_TYPE="LVCMOS33" *)
+(* LOC="D13" *) (* IO_TYPE="LVCMOS33" *)
 TRELLIS_IO #(.DIR("BIDIR")) sdram_dq_buf_11 (.B(sdram_dq_pad_io[11]), .I(sdram_dq_o[11]), .O(sdram_dq_i[11]), .T(!sdram_dq_oe));
-(* LOC="E18" *) (* IO_TYPE="LVCMOS33" *)
+(* LOC="C13" *) (* IO_TYPE="LVCMOS33" *)
 TRELLIS_IO #(.DIR("BIDIR")) sdram_dq_buf_12 (.B(sdram_dq_pad_io[12]), .I(sdram_dq_o[12]), .O(sdram_dq_i[12]), .T(!sdram_dq_oe));
-(* LOC="F18" *) (* IO_TYPE="LVCMOS33" *)
+(* LOC="B13" *) (* IO_TYPE="LVCMOS33" *)
 TRELLIS_IO #(.DIR("BIDIR")) sdram_dq_buf_13 (.B(sdram_dq_pad_io[13]), .I(sdram_dq_o[13]), .O(sdram_dq_i[13]), .T(!sdram_dq_oe));
-(* LOC="J18" *) (* IO_TYPE="LVCMOS33" *)
+(* LOC="A13" *) (* IO_TYPE="LVCMOS33" *)
 TRELLIS_IO #(.DIR("BIDIR")) sdram_dq_buf_14 (.B(sdram_dq_pad_io[14]), .I(sdram_dq_o[14]), .O(sdram_dq_i[14]), .T(!sdram_dq_oe));
-(* LOC="J17" *) (* IO_TYPE="LVCMOS33" *)
+(* LOC="A12" *) (* IO_TYPE="LVCMOS33" *)
 TRELLIS_IO #(.DIR("BIDIR")) sdram_dq_buf_15 (.B(sdram_dq_pad_io[15]), .I(sdram_dq_o[15]), .O(sdram_dq_i[15]), .T(!sdram_dq_oe));
 
 assign	wb_s2m_sdram_ibus_err = 0;
@@ -470,7 +466,7 @@ wb_sdram_ctrl #(
 	.REFRESH_MS			(32),	// delay between refresh cycles im ms
 	.WB_PORTS			(2),	// Number of wishbone ports
 	.ROW_WIDTH			(13),	// Row width
-	.COL_WIDTH			(9),	// Column width
+	.COL_WIDTH			(10),	// Column width
 	.BA_WIDTH			(2),	// Ba width
 	.tCAC				(2),	// CAS Latency
 	.tRAC				(5),	// RAS Latency
@@ -519,9 +515,9 @@ wb_sdram_ctrl0 (
 wire	uart0_irq;
 wire  uart0_stx_o, uart0_srx_i;
 
-(* LOC="L4" *) (* IO_TYPE="LVCMOS33" *)
+(* LOC="A11" *) (* IO_TYPE="LVCMOS33" *)
 TRELLIS_IO #(.DIR("OUTPUT")) utx_buf (.B(uart0_stx_pad_o), .I(uart0_stx_o));
-(* LOC="M1" *) (* IO_TYPE="LVCMOS33" *)
+(* LOC="C11" *) (* IO_TYPE="LVCMOS33" *)
 TRELLIS_IO #(.DIR("INPUT")) urx_buf (.B(uart0_srx_pad_i), .O(uart0_srx_i));
 
 assign	wb_s2m_uart0_err = 0;
@@ -561,23 +557,23 @@ uart_top uart16550_0 (
 //
 ////////////////////////////////////////////////////////////////////////
 
-(* LOC="B2" *) (* IO_TYPE="LVCMOS33" *)
-TRELLIS_IO #(.DIR("OUTPUT")) led_buf_0 (.B(gpio0_io[0]), .I(gpio0_out[0]));
-(* LOC="C2" *) (* IO_TYPE="LVCMOS33" *)
-TRELLIS_IO #(.DIR("OUTPUT")) led_buf_1 (.B(gpio0_io[1]), .I(gpio0_out[1]));
-(* LOC="C1" *) (* IO_TYPE="LVCMOS33" *)
-TRELLIS_IO #(.DIR("OUTPUT")) led_buf_2 (.B(gpio0_io[2]), .I(gpio0_out[2]));
-(* LOC="D2" *) (* IO_TYPE="LVCMOS33" *)
-TRELLIS_IO #(.DIR("OUTPUT")) led_buf_3 (.B(gpio0_io[3]), .I(gpio0_out[3]));
+(* LOC="E16" *) (* IO_TYPE="LVCMOS25" *)
+TRELLIS_IO #(.DIR("OUTPUT")) led_buf_0 (.B(gpio0_io[0]), .I(!gpio0_out[0]));
+(* LOC="D17" *) (* IO_TYPE="LVCMOS25" *)
+TRELLIS_IO #(.DIR("OUTPUT")) led_buf_1 (.B(gpio0_io[1]), .I(!gpio0_out[1]));
+(* LOC="D18" *) (* IO_TYPE="LVCMOS25" *)
+TRELLIS_IO #(.DIR("OUTPUT")) led_buf_2 (.B(gpio0_io[2]), .I(!gpio0_out[2]));
+(* LOC="E18" *) (* IO_TYPE="LVCMOS25" *)
+TRELLIS_IO #(.DIR("OUTPUT")) led_buf_3 (.B(gpio0_io[3]), .I(!gpio0_out[3]));
 
-(* LOC="D1" *) (* IO_TYPE="LVCMOS33" *)
-TRELLIS_IO #(.DIR("OUTPUT")) led_buf_4 (.B(gpio0_io[4]), .I(gpio0_out[4]));
-(* LOC="E2" *) (* IO_TYPE="LVCMOS33" *)
-TRELLIS_IO #(.DIR("OUTPUT")) led_buf_5 (.B(gpio0_io[5]), .I(gpio0_out[5]));
-(* LOC="E1" *) (* IO_TYPE="LVCMOS33" *)
-TRELLIS_IO #(.DIR("OUTPUT")) led_buf_6 (.B(gpio0_io[6]), .I(gpio0_out[6]));
-(* LOC="H3" *) (* IO_TYPE="LVCMOS33" *)
-TRELLIS_IO #(.DIR("OUTPUT")) led_buf_7 (.B(gpio0_io[7]), .I(gpio0_out[7]));
+(* LOC="F17" *) (* IO_TYPE="LVCMOS25" *)
+TRELLIS_IO #(.DIR("OUTPUT")) led_buf_4 (.B(gpio0_io[4]), .I(!gpio0_out[4]));
+(* LOC="F18" *) (* IO_TYPE="LVCMOS25" *)
+TRELLIS_IO #(.DIR("OUTPUT")) led_buf_5 (.B(gpio0_io[5]), .I(!gpio0_out[5]));
+(* LOC="E17" *) (* IO_TYPE="LVCMOS25" *)
+TRELLIS_IO #(.DIR("OUTPUT")) led_buf_6 (.B(gpio0_io[6]), .I(!gpio0_out[6]));
+(* LOC="F16" *) (* IO_TYPE="LVCMOS25" *)
+TRELLIS_IO #(.DIR("OUTPUT")) led_buf_7 (.B(gpio0_io[7]), .I(!gpio0_out[7]));
 
 wire [7:0]	gpio0_out;
 

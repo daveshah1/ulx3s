@@ -59,23 +59,39 @@ assign	async_rst  = ~async_rst_n;
 
 // Everyone likes active-high reset signals...
 assign	async_rst_o = ~async_rst_n;
-
-// No PLL support - phase shift SDRAM clk using LUTs :vomit:
-/*
-localparam sdram_shift_count  = 5;
-wire [sdram_shift_count:0] sdram_clk_shift;
-assign sdram_clk_shift[0] = sys_clk_pad_i;
-
-generate
-	genvar ii;
-	for (ii = 0; ii < sdram_shift_count; ii=ii+1) begin
-		LUT4 #(.INIT(2)) lut4_i (.A(sdram_clk_shift[ii]), .B(1'b0), .C(1'b0), .D(1'b0), .Z(sdram_clk_shift[ii+1]));
-	end
-endgenerate
-
-assign sdram_clk_o = sdram_clk_shift[sdram_shift_count];
-*/
-assign sdram_clk_o = sys_clk_pad_i;
+wire clkop;
+(* ICP_CURRENT = "12", LPF_RESISTOR = "8", MFG_ENABLE_FILTEROPAMP = "1", MFG_GMCREF_SEL = "2" *) EHXPLLL #(
+	.CLKFB_DIV(1),
+	.CLKI_DIV(2),
+	.CLKOP_CPHASE(11),
+	.CLKOP_DIV(12),
+	.CLKOP_ENABLE("ENABLED"),
+	.CLKOP_FPHASE(0),
+	.CLKOS_CPHASE(45),
+	.CLKOS_DIV(24),
+	.CLKOS_ENABLE("ENABLED"),
+	.CLKOS_FPHASE(1'd0),
+	.FEEDBK_PATH("CLKOP"),
+	.OUTDIVIDER_MUXA("DIVA"),
+	.OUTDIVIDER_MUXB("DIVB"),
+	.PLL_LOCK_MODE(1'd0)
+) EHXPLLL_i (
+	.CLKFB(clkop),
+	.CLKI(sys_clk_pad_i),
+	.ENCLKOP(1'd0),
+	.ENCLKOS(1'd0),
+	.PHASEDIR(1'd0),
+	.PHASELOADREG(1'd0),
+	.PHASESEL0(1'd0),
+	.PHASESEL1(1'd0),
+	.PHASESTEP(1'd0),
+	.PLLWAKESYNC(1'd0),
+	.RST(1'd0),
+	.STDBY(1'd0),
+	.CLKOP(clkop),
+	.CLKOS(wb_clk_o),
+	.LOCK()
+);
 
 //
 // Declare synchronous reset wires here
@@ -86,11 +102,11 @@ wire   sync_rst_n;
 
 wire   pll_lock;
 
-assign wb_clk_o = sys_clk_pad_i;
+
 assign pll_lock = 1'b1;
 assign sync_rst_n = pll_lock;
 
-
+assign sdram_clk_o = wb_clk_o;
 
 //
 // Reset generation

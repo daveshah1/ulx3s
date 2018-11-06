@@ -12,7 +12,6 @@ wire [31:0] wb_s2m_or1k_i_dat;
 wire        wb_s2m_or1k_i_ack;
 wire        wb_s2m_or1k_i_err;
 wire        wb_s2m_or1k_i_rty;
-/*
 wire [31:0] wb_m2s_dbus_adr;
 wire [31:0] wb_m2s_dbus_dat;
 wire  [3:0] wb_m2s_dbus_sel;
@@ -25,7 +24,6 @@ wire [31:0] wb_s2m_dbus_dat;
 wire        wb_s2m_dbus_ack;
 wire        wb_s2m_dbus_err;
 wire        wb_s2m_dbus_rty;
-*/
 wire [31:0] wb_m2s_sdram_dbus_adr;
 wire [31:0] wb_m2s_sdram_dbus_dat;
 wire  [3:0] wb_m2s_sdram_dbus_sel;
@@ -174,3 +172,4 @@ wb_intercon wb_intercon0
     .wb_rom0_ack_i       (wb_s2m_rom0_ack),
     .wb_rom0_err_i       (wb_s2m_rom0_err),
     .wb_rom0_rty_i       (wb_s2m_rom0_rty));
+

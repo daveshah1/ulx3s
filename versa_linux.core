@@ -1,6 +1,6 @@
 CAPI=2:
 
-name : ::ulx3s:0
+name : ::versa_linux:0
 
 filesets:
   rtl:
@@ -47,9 +47,9 @@ targets:
     tools:
       trellis:
         nextpnr_options :
-          - --45k
+          - --um5g-45k
           - --basecfg
-          - /usr/local/share/trellis/misc/basecfgs/empty_lfe5u-45f.config
+          - /usr/local/share/trellis/misc/basecfgs/empty_lfe5um5g-45f.config
     toplevel : orpsoc_top
 
   sim:
